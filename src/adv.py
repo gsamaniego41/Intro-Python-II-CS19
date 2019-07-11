@@ -1,4 +1,15 @@
 from room import Room
+from player import Player
+from item import Item
+
+item = {
+    'power': Item('Power Stone', 'Purple'),
+    'space': Item('Space Stone', 'Blue'),
+    'time': Item('Time Stone', 'Green'),
+    'mind': Item('Mind Stone', 'Yellow'),
+    'reality': Item('Reality Stone', 'Red'),
+    'soul': Item('Soul Stone', 'Orange'),
+}
 
 # Declare all the rooms
 
@@ -33,12 +44,20 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+room['treasure'].add_item(item['power'])
+room['treasure'].add_item(item['space'])
+room['treasure'].add_item(item['time'])
+room['overlook'].add_item(item['reality'])
+room['overlook'].add_item(item['soul'])
+room['narrow'].add_item(item['mind'])
+
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
-
+# player_name = input('Your name: ')
+player = Player('player1', room['outside'], [])
 # Write a loop that:
 #
 # * Prints the current room name
@@ -46,6 +65,32 @@ room['treasure'].s_to = room['narrow']
 # * Waits for user input and decides what to do.
 #
 # If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
+# ✔ Print an error message if the movement isn't allowed.
 #
-# If the user enters "q", quit the game.
+# ✔ If the user enters "q", quit the game.
+
+
+directions = ('n', 's', 'e', 'w')
+actions = ('take', 'drop')
+
+while True:
+    room = player.current_room
+    map = f'North: {room.n_to}\nSouth: {room.s_to}\nEast: {room.e_to}\nWest: {room.w_to}'
+    print(map)
+    cmd = input('Enter a command -> ')
+    cmd = cmd.split()
+
+    if cmd[0] in directions:
+        player.move_player(cmd[0])
+    elif cmd[0] in actions:
+        action = cmd[0]
+        item = cmd[1]
+        player.item_action(action, item)
+    elif cmd[0] == 'q':
+        print('Thanks for playing!')
+        break
+    else:
+        print(f'''\n**********************************
+            \nPlease enter a valid command
+            \nOptions: n, s, e, w, q
+            \n**********************************\n''')
