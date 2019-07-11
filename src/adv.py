@@ -44,6 +44,13 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+room['treasure'].add_item(item['power'])
+room['treasure'].add_item(item['space'])
+room['treasure'].add_item(item['time'])
+room['overlook'].add_item(item['reality'])
+room['overlook'].add_item(item['soul'])
+room['narrow'].add_item(item['mind'])
+
 #
 # Main
 #
@@ -71,7 +78,6 @@ while True:
     print(map)
     cmd = input('Enter a command -> ')
 
-    # cmd = cmd.lower()
     if cmd in directions:
         player.move_player(cmd)
     elif cmd == 'q':
@@ -79,17 +85,3 @@ while True:
         break
     else:
         print(f'\n**********************************\nPlease enter a valid command\nOptions: n, s, e, w, q\n**********************************\n')
-
-'''
-    elif cmd not in directions:
-        print('please enter N, S, E, W, or Q')
-    elif cmd == 'N':
-        player.room = room.n_to
-        print(player.room)
-    elif cmd == 'S':
-        player.room = room.s_to
-    elif cmd == 'E':
-        player.room = room.e_to
-    elif cmd == 'W':
-        player.room = room.w_to
-'''
