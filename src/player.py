@@ -3,12 +3,18 @@
 
 
 class Player:
-    def __init__(self, name, room):
+    def __init__(self, name, starting_room):
         self.name = name
-        self.room = room
+        self.current_room = starting_room
+
+    # def __str__(self):
+        # print(self.current_room)
 
     def move_player(self, direction):
-        if getattr(self.room, f'{direction}_to') is not None:
-            self.room = getattr(self.room, f'{direction}_to')
+        if getattr(self.current_room, f'{direction}_to') is not None:
+            self.current_room = getattr(self.current_room, f'{direction}_to')
+            print('\n==================================')
+            print(
+                f'{self.current_room.name}.\n{self.current_room.desc}\n==================================')
         else:
-            print('please enter n, s, e, w, or q')
+            print('\n*******************\n*  No room there  *\n*******************')

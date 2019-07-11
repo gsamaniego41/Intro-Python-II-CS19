@@ -40,7 +40,7 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 # player_name = input('Your name: ')
-new_player = Player('player1', 'outside')
+player = Player('player1', room['outside'])
 # Write a loop that:
 #
 # * Prints the current room name
@@ -52,31 +52,34 @@ new_player = Player('player1', 'outside')
 #
 # ✔ If the user enters "q", quit the game.
 
-room = new_player.room
-directions = ('n', 's', 'e', 'w', 'q')
+
+directions = ('n', 's', 'e', 'w')
 
 while True:
-    cmd = input(f'You are in the {new_player.room} room. Where to next? ')
+    room = player.current_room
+    map = f'North: {room.n_to}\nSouth: {room.s_to}\nEast: {room.e_to}\nWest: {room.w_to}'
+    print(map)
+    cmd = input('Enter a command -> ')
 
     # cmd = cmd.lower()
-
-    if cmd == 'q':
+    if cmd in directions:
+        player.move_player(cmd)
+    elif cmd == 'q':
         print('Thanks for playing!')
         break
     else:
-        new_player.move_player(cmd)
-        print(new_player.room)
+        print(f'\n**********************************\nPlease enter a valid command\nOptions: n, s, e, w, q\n**********************************\n')
 
 '''
     elif cmd not in directions:
         print('please enter N, S, E, W, or Q')
     elif cmd == 'N':
-        new_player.room = room.n_to
-        print(new_player.room)
+        player.room = room.n_to
+        print(player.room)
     elif cmd == 'S':
-        new_player.room = room.s_to
+        player.room = room.s_to
     elif cmd == 'E':
-        new_player.room = room.e_to
+        player.room = room.e_to
     elif cmd == 'W':
-        new_player.room = room.w_to
+        player.room = room.w_to
 '''
