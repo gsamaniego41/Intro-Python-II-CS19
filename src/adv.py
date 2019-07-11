@@ -57,7 +57,7 @@ room['narrow'].add_item(item['mind'])
 
 # Make a new player object that is currently in the 'outside' room.
 # player_name = input('Your name: ')
-player = Player('player1', room['outside'])
+player = Player('player1', room['outside'], [])
 # Write a loop that:
 #
 # * Prints the current room name
@@ -71,17 +71,26 @@ player = Player('player1', room['outside'])
 
 
 directions = ('n', 's', 'e', 'w')
+actions = ('take', 'drop')
 
 while True:
     room = player.current_room
     map = f'North: {room.n_to}\nSouth: {room.s_to}\nEast: {room.e_to}\nWest: {room.w_to}'
     print(map)
     cmd = input('Enter a command -> ')
+    cmd = cmd.split()
 
-    if cmd in directions:
-        player.move_player(cmd)
-    elif cmd == 'q':
+    if cmd[0] in directions:
+        player.move_player(cmd[0])
+    elif cmd[0] in actions:
+        action = cmd[0]
+        item = cmd[1]
+        player.item_action(action, item)
+    elif cmd[0] == 'q':
         print('Thanks for playing!')
         break
     else:
-        print(f'\n**********************************\nPlease enter a valid command\nOptions: n, s, e, w, q\n**********************************\n')
+        print(f'''\n**********************************
+            \nPlease enter a valid command
+            \nOptions: n, s, e, w, q
+            \n**********************************\n''')

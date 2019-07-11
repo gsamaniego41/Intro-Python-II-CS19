@@ -13,14 +13,18 @@ class Player:
             self.current_room = getattr(self.current_room, f'{direction}_to')
             print('\n==================================')
             print(
-                f'{self.current_room.name}.\n{self.current_room.desc}\n==================================\n\nItems in this room:\n{self.current_room.items}')
+                f'{self.current_room.name}.\n{self.current_room.desc}\n\nItems in this room:\n{self.current_room.items}\n==================================\n')
+            print(f'Inventory: {self.inventory}')
         else:
             print('\n*******************\n*  No room there  *\n*******************')
 
-    def get_item(self, item):
-        self.inventory.append(item)
-        print(f'Acquired {item}')
-
-    def drop_item(self, item):
-        self.inventory.remove(item)
-        print(f'Discarded {item}')
+    def item_action(self, action, item):
+        if action == 'take':
+            if item in self.current_room.items:
+                self.inventory.append(item)
+                print(f'==== Acquired {item} ====')
+            else:
+                print('Item does not exist')
+        elif action == 'drop':
+            self.inventory.remove(item)
+            print(f'Discarded {item}')
