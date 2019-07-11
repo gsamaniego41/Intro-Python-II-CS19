@@ -1,5 +1,15 @@
 from room import Room
 from player import Player
+from item import Item
+
+item = {
+    'power': Item('Power Stone', 'Purple'),
+    'space': Item('Space Stone', 'Blue'),
+    'time': Item('Time Stone', 'Green'),
+    'mind': Item('Mind Stone', 'Yellow'),
+    'reality': Item('Reality Stone', 'Red'),
+    'soul': Item('Soul Stone', 'Orange'),
+}
 
 # Declare all the rooms
 
